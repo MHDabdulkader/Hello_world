@@ -1,0 +1,54 @@
+// find sum of all gcd 1 to n;
+// create a pi_function for pre calculated the all co primes and there sum.
+
+long long phi[max_value] = {0}, ans[max_value];
+
+void gcd_sum_1_to_n(){
+  phi[0] = 0; 
+  phi[1] = 0;
+  /// phi calculated.
+  for(long long i = 2; i<= max_value; i++)phi[i] = i;
+  for(long long i = 2; i<= max_value; i++)
+    if(phi[i]==i)
+      for(long long j = i; j<= max_value; j+=i)
+        phi[j] = phi[j] - phi[j]/i;
+  /// sum all co-primes
+  for(long long i = 1; i< max_value; i++)
+    for(long long j = 2; i*j< max_value; j++) ans[i*j] += (i * phi[j]);
+  for(long long i= 2; i< max_value; i++)ans[i]+=ans[i-1];
+ }
+ 
+ 
+ /// sum of all lcm(1, n) + lcm(2, n) ... lcm(n, n)
+ 
+long long phi[max_value] = {0}, ans[max_value];
+void lcm_sum_1_n(){
+  phi[0] = 0;
+	phi[1] = 1;
+
+	for(long long i = 2; i<= mxvalue; i++)
+		phi[i] = i;
+
+	for(long long i = 2; i<= mxvalue; i++){
+		if(phi[i] == i){
+			phi[i] = i - 1;
+			for(long long j =2*i; j<= mxvalue; j+=i){
+				phi[j]= (phi[j]*(i-1))/i;
+			}
+		}
+	}
+
+	for(long long i = 1; i<= mxvalue; i++){
+		for(long long j = i; j<= mxvalue; j+=i){
+			ans[j] +=(i*phi[i]);
+		}
+	}
+}
+/*
+  now answer = phi[n];
+      answer = (answer+1)*n;
+      answer /= 2;
+*/
+
+
+
